@@ -24,7 +24,6 @@ export function Button({
   const cls = `${base} ${v} ${className}`.trim();
 
   if (asChild && React.isValidElement(children)) {
-    // @ts-expect-error - cloneElement for className merge
     return React.cloneElement(children, {
       className: `${(children.props?.className ?? "")} ${cls}`.trim(),
     });
