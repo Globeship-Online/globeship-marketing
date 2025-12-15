@@ -1,22 +1,36 @@
 "use client";
 import React from "react";
 
-const SheetContext = React.createContext<{ open: boolean; setOpen: (v: boolean) => void } | null>(null);
+const SheetContext = React.createContext<{
+  open: boolean;
+  setOpen: (v: boolean) => void;
+} | null>(null);
 
 export function Sheet({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState(false);
   return <SheetContext.Provider value={{ open, setOpen }}>{children}</SheetContext.Provider>;
 }
 
-export function SheetTrigger({ asChild, children }: { asChild?: boolean; children: React.ReactNode }) {
+export function SheetTrigger({
+  asChild,
+  children,
+}: {
+  asChild?: boolean;
+  children: React.ReactNode;
+}) {
   const ctx = React.useContext(SheetContext);
   if (!ctx) throw new Error("SheetTrigger must be used within Sheet");
+
   const onClick = () => ctx.setOpen(true);
 
- if (asChild && React.isValidElement(children)) {
-  const child = children as React.ReactElement<{ onClick?: () => void }>;
-  return React.cloneElement(child, { onClick });
+  if (asChild && React.isValidElement(children)) {
+    const child = children as React.ReactElement<{ onClick?: () => void }>;
+    return React.cloneElement(child, { onClick });
+  }
+
+  return <button onClick={onClick}>{children}</button>;
 }
+
 export function SheetContent({
   side = "right",
   className = "",
@@ -28,17 +42,14 @@ export function SheetContent({
 }) {
   const ctx = React.useContext(SheetContext);
   if (!ctx) throw new Error("SheetContent must be used within Sheet");
+
   const { open, setOpen } = ctx;
 
   if (!open) return null;
 
   return (
     <div className="fixed inset-0 z-[60]">
-      <div
-        className="absolute inset-0 bg-black/60"
-        onClick={() => setOpen(false)}
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 bg-black/60" onClick={() => setOpen(false)} aria-hidden="true" />
       <div
         className={[
           "absolute top-0 h-full w-[86%] max-w-sm border-l border-white/10 bg-black p-6 text-white shadow-2xl",
@@ -59,3 +70,4 @@ export function SheetContent({
     </div>
   );
 }
+
