@@ -23,11 +23,14 @@ export function Button({
       : "bg-orange-500 text-black hover:bg-orange-400";
   const cls = `${base} ${v} ${className}`.trim();
 
-  if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children, {
-      className: `${(children.props?.className ?? "")} ${cls}`.trim(),
-    });
-  }
+if (asChild && React.isValidElement(children)) {
+  const child = children as React.ReactElement<{ className?: string }>;
+
+  return React.cloneElement(child, {
+    className: `${child.props.className ?? ""} ${cls}`.trim(),
+  });
+}
+
   return (
     <button className={cls} {...props}>
       {children}
