@@ -13,13 +13,10 @@ export function SheetTrigger({ asChild, children }: { asChild?: boolean; childre
   if (!ctx) throw new Error("SheetTrigger must be used within Sheet");
   const onClick = () => ctx.setOpen(true);
 
-  if (asChild && React.isValidElement(children)) {
-    // @ts-expect-error
-    return React.cloneElement(children, { onClick });
-  }
-  return <button onClick={onClick}>{children}</button>;
+ if (asChild && React.isValidElement(children)) {
+  const child = children as React.ReactElement<{ onClick?: () => void }>;
+  return React.cloneElement(child, { onClick });
 }
-
 export function SheetContent({
   side = "right",
   className = "",
