@@ -1,88 +1,132 @@
 "use client";
 
 import React from "react";
-import { Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Link from "next/link";
 
 const NAV = [
-  { href: "/shipping-services", label: "Services" },
+  { href: "/shipping-services", label: "Shipping Services" },
   { href: "/pricing", label: "Pricing" },
   { href: "/faq", label: "FAQ" },
-  { href: "/about-us", label: "About" },
-  { href: "/contact-us", label: "Contact" },
+  { href: "/about-us", label: "About Us" },
+  { href: "/contact-us", label: "Contact Us" },
 ];
 
 export default function SiteHeader() {
-  return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/40 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="/" className="group flex items-center gap-3">
-          <div className="grid h-9 w-9 place-items-center rounded-2xl border border-white/10 bg-white/5">
-            <span className="text-sm font-semibold text-white/80 transition group-hover:text-white">G</span>
-          </div>
-          <div className="leading-tight">
-            <div className="text-sm font-semibold text-white">Globeship Online</div>
-            <div className="text-xs text-white/60">AI Shipping Concierge</div>
-          </div>
-        </a>
+  const [open, setOpen] = React.useState(false);
 
-        <nav className="hidden items-center gap-6 md:flex">
-          {NAV.map((n) => (
-            <a key={n.href} className="text-sm text-white/70 transition hover:text-white" href={n.href}>
-              {n.label}
-            </a>
+  React.useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050509]/70 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-3 rounded-xl px-2 py-1 transition hover:bg-white/5"
+          aria-label="Globeship Online Home"
+        >
+          <img
+            src="/globeship-logo.png"
+            alt="Globeship Online"
+            className="h-8 w-auto"
+            draggable={false}
+          />
+          <span className="hidden text-sm font-semibold tracking-tight text-white/90 sm:inline">
+            Globeship Online
+          </span>
+        </Link>
+
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-1 md:flex">
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-xl px-3 py-2 text-sm font-medium text-white/70 transition hover:bg-white/5 hover:text-white"
+            >
+              {item.label}
+            </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <Button asChild variant="secondary" className="hidden rounded-2xl md:inline-flex">
-            <a href="/">AI Concierge</a>
-          </Button>
-
-          <Button asChild className="hidden rounded-2xl md:inline-flex">
-            <a href="https://ship.globeship.ca" target="_blank" rel="noreferrer">
-              Start shipping
-            </a>
-          </Button>
-
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="secondary" className="rounded-2xl md:hidden" aria-label="Open menu">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-
-            <SheetContent side="right" className="border-white/10 bg-black text-white">
-              <div className="mt-6 space-y-2">
-                <div className="text-sm font-semibold text-white">Menu</div>
-                <div className="h-px bg-white/10" />
-                <div className="flex flex-col gap-2 pt-2">
-                  <a className="rounded-xl px-3 py-2 text-white/80 transition hover:bg-white/5 hover:text-white" href="/">
-                    AI Concierge
-                  </a>
-                  {NAV.map((n) => (
-                    <a
-                      key={n.href}
-                      className="rounded-xl px-3 py-2 text-white/80 transition hover:bg-white/5 hover:text-white"
-                      href={n.href}
-                    >
-                      {n.label}
-                    </a>
-                  ))}
-                </div>
-                <div className="pt-4">
-                  <Button asChild className="w-full rounded-2xl">
-                    <a href="https://ship.globeship.ca" target="_blank" rel="noreferrer">
-                      Start shipping
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+        {/* Desktop CTA */}
+        <div className="hidden md:flex">
+          <a
+            href="https://ship.globeship.ca"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center rounded-2xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400"
+          >
+            Start Shipping
+          </a>
         </div>
+
+        {/* Mobile button */}
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white/90 transition hover:bg-white/10 md:hidden"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
       </div>
+
+      {/* Mobile drawer */}
+      {open && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          <button
+            className="absolute inset-0 bg-black/70"
+            aria-label="Close menu overlay"
+            onClick={() => setOpen(false)}
+          />
+          <div className="absolute right-0 top-0 h-full w-[88%] max-w-sm border-l border-white/10 bg-[#050509] p-5">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-semibold text-white/90">Menu</span>
+              <button
+                onClick={() => setOpen(false)}
+                className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 transition hover:bg-white/10"
+              >
+                Close
+              </button>
+            </div>
+
+            <div className="mt-5 space-y-1">
+              {NAV.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-xl px-3 py-2 text-sm font-medium text-white/80 transition hover:bg-white/5 hover:text-white"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-6 border-t border-white/10 pt-5">
+              <a
+                href="https://ship.globeship.ca"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex w-full items-center justify-center rounded-2xl bg-orange-500 px-5 py-3 text-sm font-semibold text-black transition hover:bg-orange-400"
+              >
+                Start Shipping
+              </a>
+              <p className="mt-3 text-xs text-white/50">
+                Rates are table stakes. Intelligence is the edge.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
