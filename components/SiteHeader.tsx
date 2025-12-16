@@ -13,16 +13,33 @@ const NAV = [
   { href: "/contact-us", label: "Contact Us" },
 ];
 
+const ANIM_MS = 240;
+
 export default function SiteHeader() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
   const [open, setOpen] = React.useState(false);
-  const [mounted, setMounted] = React.useState(false);
 
+  // For animation lifecycle (render while closing)
+  const [mounted, setMounted] = React.useState(false);
+  const [renderMenu, setRenderMenu] = React.useState(false);
+  const [active, setActive] = React.useState(false);
+
+  React.useEffect(() => setMounted(true), []);
+
+  // When open toggles, drive animation states
   React.useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (open) {
+      setRenderMenu(true);
+      // next frame so transitions apply
+      requestAnimationFrame(() => setActive(true));
+    } else {
+      setActive(false);
+      const t = window.setTimeout(() => setRenderMenu(false), ANIM_MS);
+      return () => window.clearTimeout(t);
+    }
+  }, [open]);
 
   // Close on Escape
   React.useEffect(() => {
@@ -34,60 +51,75 @@ export default function SiteHeader() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  // Lock body scroll while menu is open
+  // Lock body scroll while menu is shown (including during close animation)
   React.useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    document.body.style.overflow = renderMenu ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [open]);
+  }, [renderMenu]);
 
-  const MobileDrawer = () => (
+  const MobileMenuFullScreen = () => (
     <div className="fixed inset-0 z-[9999] md:hidden">
-      {/* Backdrop */}
+      {/* Backdrop (fade) */}
       <button
-        className="absolute inset-0 bg-black/70"
+        className={[
+          "absolute inset-0 bg-black/70 transition-opacity duration-[240ms]",
+          active ? "opacity-100" : "opacity-0",
+        ].join(" ")}
         aria-label="Close menu overlay"
         onClick={() => setOpen(false)}
       />
 
-      {/* Panel */}
-      <div className="absolute right-0 top-0 h-dvh w-[88%] max-w-sm border-l border-white/10 bg-[#050509] p-5">
-        <div className="flex items-center justify-between">
+      {/* Full-screen surface (slide in from right) */}
+      <div
+        className={[
+          "absolute inset-0 bg-[#050509]/98 backdrop-blur-xl",
+          "transition-transform duration-[240ms] ease-out will-change-transform",
+          active ? "translate-x-0" : "translate-x-full",
+        ].join(" ")}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile menu"
+      >
+        <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
           <span className="text-sm font-semibold text-white/90">Menu</span>
           <button
             onClick={() => setOpen(false)}
             className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 transition hover:bg-white/10"
+            aria-label="Close menu"
           >
             Close
           </button>
         </div>
 
-        <div className="mt-5 space-y-1">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="block rounded-xl px-3 py-2 text-sm font-medium text-white/80 transition hover:bg-white/5 hover:text-white"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
+        <div className="px-5 py-5">
+          <div className="space-y-1">
+            {NAV.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="block rounded-xl px-3 py-3 text-base font-medium text-white/85 transition hover:bg-white/5 hover:text-white"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
 
-        <div className="mt-6 border-t border-white/10 pt-5">
-          <a
-            href="https://ship.globeship.ca"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex w-full items-center justify-center rounded-2xl bg-orange-500 px-5 py-3 text-sm font-semibold text-black transition hover:bg-orange-400"
-          >
-            Start Shipping
-          </a>
-          <p className="mt-3 text-xs text-white/50">
-            Rates are table stakes. Intelligence is the edge.
-          </p>
+          <div className="mt-6 border-t border-white/10 pt-6">
+            <a
+              href="https://ship.globeship.ca"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex w-full items-center justify-center rounded-2xl bg-orange-500 px-5 py-4 text-base font-semibold text-black transition hover:bg-orange-400"
+            >
+              Start Shipping
+            </a>
+            <p className="mt-3 text-xs text-white/50">
+              Rates are table stakes. Intelligence is the edge.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -154,8 +186,11 @@ export default function SiteHeader() {
         </button>
       </div>
 
-      {/* Mobile drawer (Portaled to body so it always overlays correctly) */}
-      {mounted && open ? createPortal(<MobileDrawer />, document.body) : null}
+      {/* Mobile menu (Portaled to body) */}
+      {mounted && renderMenu
+        ? createPortal(<MobileMenuFullScreen />, document.body)
+        : null}
     </header>
   );
 }
+
