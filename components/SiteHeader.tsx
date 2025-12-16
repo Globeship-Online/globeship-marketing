@@ -32,12 +32,16 @@ export default function SiteHeader() {
           className="inline-flex items-center gap-3 rounded-xl px-2 py-1 transition hover:bg-white/5"
           aria-label="Globeship Online Home"
         >
-          <img
-            src="/globeship-logo.png"
-            alt="Globeship Online"
-            className="h-8 w-auto"
-            draggable={false}
-          />
+          {/* White pill behind logo (improves legibility) */}
+          <span className="inline-flex items-center justify-center rounded-full bg-white/95 px-3 py-1.5 shadow-[0_10px_28px_rgba(0,0,0,0.45)] ring-1 ring-black/5 transition hover:bg-white hover:shadow-[0_14px_36px_rgba(0,0,0,0.55)]">
+            <img
+              src="/globeship-logo.png"
+              alt="Globeship Online"
+              className="h-8 w-auto select-none"
+              draggable={false}
+            />
+          </span>
+
           <span className="hidden text-sm font-semibold tracking-tight text-white/90 sm:inline">
             Globeship Online
           </span>
@@ -130,3 +134,4 @@ export default function SiteHeader() {
     </header>
   );
 }
+
