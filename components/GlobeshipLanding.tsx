@@ -1,8 +1,7 @@
+"use client";
 // src/pages/GlobeshipLanding.tsx
 import React from 'react';
-import globeshipLogo from '../assets/globeship-logo.png';
-
-export function GlobeshipLanding() {
+export default function GlobeshipLanding() {
   return (
     <main className="min-h-screen bg-[#050509] text-slate-50">
       {/* Hero */}
@@ -30,7 +29,7 @@ export function GlobeshipLanding() {
                 {/* Glow that appears on hover */}
                 <div className="absolute inset-0 rounded-full bg-orange-500/15 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <img
-                  src={globeshipLogo}
+                  src="/globeship-logo.png"
                   alt="Globeship Online logo"
                   className="relative h-12 sm:h-14 md:h-16 w-auto select-none"
                   draggable={false}
@@ -72,14 +71,14 @@ export function GlobeshipLanding() {
               {/* CTAs */}
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <a
-                  href="#/snapshot"
+                 href="https://ship.globeship.ca"
                   className="inline-flex items-center justify-center rounded-full bg-orange-500 px-7 py-3 text-sm font-semibold text-black shadow-lg shadow-orange-500/40 transition hover:bg-orange-400"
                 >
                   Talk to the AI Shipping Concierge
                 </a>
 
                 <a
-                  href="#/"
+                  href="/"
                   className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-black/60 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:border-orange-400 hover:text-orange-100"
                 >
                   Back to NFC.ICU main site
