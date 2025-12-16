@@ -8,13 +8,17 @@ export default function SiteFooter() {
           {/* Col 1 */}
           <div>
             <div className="flex items-center gap-3">
-              <img
-                src="/globeship-logo.png"
-                alt="Globeship Online"
-                className="h-8 w-auto"
-                draggable={false}
-              />
+              {/* White pill behind logo (footer) */}
+              <span className="inline-flex items-center justify-center rounded-full bg-white/95 px-3 py-1.5 shadow-[0_10px_28px_rgba(0,0,0,0.35)] ring-1 ring-black/5">
+                <img
+                  src="/globeship-logo.png"
+                  alt="Globeship Online"
+                  className="h-7 w-auto select-none"
+                  draggable={false}
+                />
+              </span>
             </div>
+
             <p className="mt-4 text-sm text-white/60">
               Canada’s first AI-powered shipping concierge.
             </p>
@@ -91,4 +95,5 @@ export default function SiteFooter() {
     </footer>
   );
 }
+
 
