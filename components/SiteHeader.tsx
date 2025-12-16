@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const NAV = [
   { href: "/shipping-services", label: "Shipping Services" },
@@ -12,6 +13,9 @@ const NAV = [
 ];
 
 export default function SiteHeader() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -26,23 +30,24 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050509]/70 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        {/* Logo */}
+        {/* Brand (logo on all pages EXCEPT home) */}
         <Link
           href="/"
           className="inline-flex items-center gap-3 rounded-xl px-2 py-1 transition hover:bg-white/5"
           aria-label="Globeship Online Home"
         >
-          {/* White pill behind logo (improves legibility) */}
-          <span className="inline-flex items-center justify-center rounded-full bg-white/95 px-3 py-1.5 shadow-[0_10px_28px_rgba(0,0,0,0.45)] ring-1 ring-black/5 transition hover:bg-white hover:shadow-[0_14px_36px_rgba(0,0,0,0.55)]">
-            <img
-              src="/globeship-logo.png"
-              alt="Globeship Online"
-              className="h-8 w-auto select-none"
-              draggable={false}
-            />
-          </span>
+          {!isHome && (
+            <span className="inline-flex items-center justify-center rounded-full bg-white/95 px-3 py-1.5 shadow-[0_10px_28px_rgba(0,0,0,0.45)] ring-1 ring-black/5 transition hover:bg-white hover:shadow-[0_14px_36px_rgba(0,0,0,0.55)]">
+              <img
+                src="/globeship-logo.png"
+                alt="Globeship Online"
+                className="h-8 w-auto select-none"
+                draggable={false}
+              />
+            </span>
+          )}
 
-          <span className="hidden text-sm font-semibold tracking-tight text-white/90 sm:inline">
+          <span className="text-sm font-semibold tracking-tight text-white/90">
             Globeship Online
           </span>
         </Link>
@@ -134,4 +139,3 @@ export default function SiteHeader() {
     </header>
   );
 }
-
