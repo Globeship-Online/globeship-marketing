@@ -1,8 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function VideoSection() {
+  useEffect(() => {
+    // Inject GrooveVideo CSS once
+    if (!document.querySelector('link[data-groovevideo-widget="css"]')) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://widget.groovevideo.com/widget/app.css";
+      link.setAttribute("data-groovevideo-widget", "css");
+      document.head.appendChild(link);
+    }
+
+    // Inject GrooveVideo script once
+    if (!document.querySelector('script[data-groovevideo-widget="js"]')) {
+      const script = document.createElement("script");
+      script.src = "https://widget.groovevideo.com/widget/app.js";
+      script.async = true;
+      script.setAttribute("data-groovevideo-widget", "js");
+      document.body.appendChild(script);
+    }
+  }, []);
+
   return (
     <section className="bg-black border-b border-orange-500/10">
       <div className="mx-auto max-w-6xl px-6 py-16">
@@ -29,20 +49,20 @@ export default function VideoSection() {
             </ul>
           </div>
 
-          {/* Video */}
-          <div className="group relative aspect-video overflow-hidden rounded-2xl border border-orange-500/25 bg-black shadow-xl shadow-black/60 transition-all duration-300 hover:border-orange-400 hover:shadow-[0_0_60px_rgba(249,115,22,0.25)]">
+          {/* GrooveVideo player wrapper */}
+          <div className="group relative overflow-hidden rounded-2xl border border-orange-500/25 bg-black shadow-xl shadow-black/60 transition-all duration-300 hover:border-orange-400 hover:shadow-[0_0_60px_rgba(249,115,22,0.25)]">
             {/* Soft orange glow on hover */}
-            <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_center,_rgba(249,115,22,0.18),_transparent_65%)]" />
+            <div className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_center,_rgba(249,115,22,0.18),_transparent_65%)]" />
 
-            {/* YouTube iframe (correct video) */}
-            <iframe
-              className="absolute inset-0 h-full w-full"
-              src="https://www.youtube.com/embed/ik0jbnp2ihY"
-              title="Globeship Online — Your Shipping Partner"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            {/* Groove widget (from your embed code) */}
+            <div className="relative z-10 min-h-[220px]">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html:
+                    '<groovevideo-widget id="235641" permalink="SqMSgNdp1sxECgLJRjlS"></groovevideo-widget>',
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
