@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 export default function GabrielIntro() {
   return (
     <section className="mx-auto max-w-6xl px-4 pb-14 pt-6 sm:px-6">
@@ -13,15 +15,27 @@ export default function GabrielIntro() {
               shadow-[0_0_70px_rgba(249,115,22,0.18)]
               transition-all duration-500 ease-out
               hover:-translate-y-1
-              hover:shadow-[0_0_90px_rgba(249,115,22,0.28)]
+              hover:ring-orange-400/60
+              hover:shadow-[0_0_110px_rgba(249,115,22,0.32)]
             "
           >
             {/* Ambient glow */}
             <div
               className="
                 pointer-events-none absolute inset-0 rounded-full
-                bg-orange-500/20 blur-xl opacity-40
-                animate-pulse
+                bg-orange-500/20 blur-xl opacity-35
+                transition-opacity duration-500 ease-out
+                group-hover:opacity-55
+              "
+            />
+
+            {/* Warm tint overlay */}
+            <div
+              className="
+                pointer-events-none absolute inset-0 z-20 rounded-full
+                bg-orange-500/10 opacity-0
+                transition-opacity duration-500 ease-out
+                group-hover:opacity-100
               "
             />
 
@@ -30,8 +44,11 @@ export default function GabrielIntro() {
               alt="Gabriel — AI Shipping Concierge"
               className="
                 relative z-10 h-full w-full object-cover
-                transition-transform duration-500 ease-out
+                transition-all duration-500 ease-out
                 group-hover:scale-[1.03]
+                group-hover:contrast-110
+                group-hover:saturate-110
+                group-hover:brightness-105
               "
               draggable={false}
             />
@@ -39,40 +56,25 @@ export default function GabrielIntro() {
         </div>
 
         {/* Copy */}
-        <div className="text-center md:text-left">
-          <h3 className="text-xl font-semibold text-white">Meet Gabriel</h3>
+        <div>
+          <h3 className="text-xl font-semibold text-white">
+            Meet Gabriel
+          </h3>
 
-          <p className="mt-1 text-sm font-medium text-orange-400">
+          <p className="mt-1 text-sm font-semibold text-orange-400">
             Your AI Shipping Concierge
           </p>
 
-          <p className="mt-2 text-sm italic text-white/75">
+          <p className="mt-3 italic text-slate-300">
             He takes shipping seriously. Himself? Less so.
           </p>
 
-          <div className="mt-4 space-y-3 text-sm leading-relaxed text-white/80">
-            <p>
-              Gabriel is Globeship’s most unlikely self-appointed spokesperson —
-              sharp, sarcastic, and surprisingly helpful.
-            </p>
+          <p className="mt-4 text-sm leading-relaxed text-slate-200">
+            Gabriel is Globeship’s most unlikely self-appointed spokesperson —
+            sharp, sarcastic, and surprisingly helpful.
+          </p>
 
-            <p>
-              A{" "}
-              <span className="font-medium text-white/90">
-                gourmet hot sauce Shopify entrepreneur at heart
-              </span>
-              , Gabriel now travels the globe helping frustrated shippers untangle
-              rates, carriers, customs, and last-mile chaos — with zero patience
-              for bad logistics.
-            </p>
-
-            <p>
-              Ask for a quote, approve it, and Gabriel will generate your shipping
-              label instantly.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+          <p className="mt-3 text-sm leading-relaxed text-slate-200">
+            A gourmet hot sauce Shopify entrepreneur at heart, Gabriel travels
+            the globe helping frustrated shippers untangle rates, carriers,
+            customs, and last-mile chaos — with zero patience for ba
