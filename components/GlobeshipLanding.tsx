@@ -2,6 +2,7 @@
 
 import React from "react";
 import GabrielIntro from "./GabrielIntro";
+import VideoSection from "./VideoSection";
 
 export default function GlobeshipLanding() {
   return (
