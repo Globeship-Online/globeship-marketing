@@ -12,22 +12,23 @@ export default function GlobeshipLanding() {
         {/* Background glow */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(249,115,22,0.26),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(15,23,42,0.9),_transparent_65%)]" />
 
-        <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-16 lg:pb-28 lg:pt-20">
+        <div className="relative mx-auto max-w-6xl px-6 pt-16 pb-24 lg:pt-20 lg:pb-28">
           {/* Logo block */}
           <div className="mb-6 flex justify-start">
             <div
               className="
                 group inline-flex items-center rounded-full
-                bg-white/95 px-7 py-2.5 shadow-[0_18px_45px_rgba(0,0,0,0.65)]
-                ring-1 ring-orange-400/70 transition-all duration-300 ease-out
-                hover:-translate-y-0.5 hover:bg-white hover:ring-orange-300
+                bg-white/95 px-7 sm:px-8 py-2.5 sm:py-3
+                shadow-[0_18px_45px_rgba(0,0,0,0.65)]
+                ring-1 ring-orange-400/70
+                hover:ring-orange-300 hover:bg-white
                 hover:shadow-[0_26px_70px_rgba(0,0,0,0.9)]
-                animate-fade-in
+                transition-all duration-300 ease-out
+                hover:-translate-y-0.5
               "
             >
               <div className="relative flex items-center justify-center">
-                {/* Glow that appears on hover */}
-                <div className="absolute inset-0 rounded-full bg-orange-500/15 blur-md opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute inset-0 rounded-full bg-orange-500/15 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <img
                   src="/globeship-logo.png"
                   alt="Globeship Online logo"
@@ -44,12 +45,12 @@ export default function GlobeshipLanding() {
             <span>Globeship Online · AI Shipping Concierge</span>
           </div>
 
-          <div className="mt-10 grid gap-14 lg:grid-cols-[1.15fr,0.95fr] lg:items-center">
+          {/* Main hero grid */}
+          <div className="mt-10 grid gap-14 lg:grid-cols-[1.15fr,0.95fr] lg:items-start">
             {/* Left column – main copy */}
             <div>
-              {/* Main heading */}
               <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                <span className="block">Canada’s first</span>
+                <span className="block">Canada&apos;s first</span>
                 <span className="mt-1 block text-orange-400">
                   AI-powered shipping concierge.
                 </span>
@@ -62,7 +63,7 @@ export default function GlobeshipLanding() {
                 </span>{" "}
                 pairs best-in-class shipping with{" "}
                 <span className="font-semibold text-orange-300">
-                  NFC.ICU-powered Contact Intelligence™
+                  NFC.ICU-powered Contact Intelligence
                 </span>{" "}
                 — so every shipment comes with marketing, automation, and
                 analytics baked in.
@@ -86,13 +87,10 @@ export default function GlobeshipLanding() {
               </div>
 
               <p className="mt-5 max-w-md text-xs text-slate-400">
-                Built on Globeship Online’s multi-carrier engine with NFC.ICU’s
-                AI experience layer on top. Quote → choice → label → upsell —
-                all in one guided flow.
+                Built on Globeship Online&apos;s multi-carrier engine with
+                NFC.ICU&apos;s AI experience layer on top. Quote → choice →
+                label → upsell — all in one guided flow.
               </p>
-
-              {/* ✅ Gabriel intro goes here (fills the blank space under the CTA area) */}
-              <GabrielIntro />
             </div>
 
             {/* Right column – experience card */}
@@ -113,9 +111,9 @@ export default function GlobeshipLanding() {
                 {/* Conversation */}
                 <div className="mt-6 rounded-2xl border border-orange-500/30 bg-[#050509] px-5 py-4 text-sm text-slate-100">
                   <p className="leading-relaxed">
-                    “Upload a shipment list and I’ll instantly recommend the
+                    &quot;Upload a shipment list and I&apos;ll instantly recommend the
                     fastest, cheapest, or most profitable carriers — and batch
-                    generate labels when you approve.”
+                    generate labels when you approve.&quot;
                   </p>
 
                   <div className="mt-4 flex flex-wrap gap-3 text-xs">
@@ -178,6 +176,9 @@ export default function GlobeshipLanding() {
         </div>
       </section>
 
+      {/* Gabriel intro */}
+      <GabrielIntro />
+
       {/* “Labels vs growth” section */}
       <section className="border-b border-orange-500/10 bg-[#050509]">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[1.2fr,1fr] lg:items-start lg:py-20">
@@ -206,10 +207,10 @@ export default function GlobeshipLanding() {
           <div className="grid gap-4 text-sm">
             <div className="rounded-2xl border border-orange-500/25 bg-black/70 px-4 py-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-300">
-                01 · More than “just rates”
+                01 · More than &quot;just rates&quot;
               </p>
               <p className="mt-2 text-slate-200">
-                If your current partner only talks about rates, you’re already
+                If your current partner only talks about rates, you&apos;re already
                 behind. Globeship Online bundles the marketing and automation
                 engine in for active shippers.
               </p>
@@ -336,7 +337,7 @@ export default function GlobeshipLanding() {
           {/* Dialogue card */}
           <div className="rounded-3xl border border-orange-500/25 bg-black/70 p-5 shadow-xl shadow-black/60 sm:p-6">
             <p className="mb-3 text-[10px] uppercase tracking-[0.2em] text-orange-300">
-              Concierge snapshot · “Gabriel” helping John
+              Concierge snapshot · &quot;Gabriel&quot; helping John
             </p>
 
             <div className="space-y-3 text-xs sm:text-sm">
@@ -345,7 +346,7 @@ export default function GlobeshipLanding() {
                   Gabriel
                 </p>
                 <p className="mt-1 text-slate-200">
-                  Hey John, I’ve got you. Tell me where this contract needs to
+                  Hey John, I&apos;ve got you. Tell me where this contract needs to
                   go and when it has to arrive.
                 </p>
               </div>
@@ -353,8 +354,8 @@ export default function GlobeshipLanding() {
               <div className="rounded-2xl border border-slate-800/80 bg-[#050509] px-4 py-3">
                 <p className="text-[11px] font-semibold text-sky-300">John</p>
                 <p className="mt-1 text-slate-200">
-                  I’m in an Uber to the airport. I need an overnight document to
-                  Big Deals USA in New York, there by 10:30 a.m. tomorrow.
+                  I&apos;m in an Uber to the airport. I need an overnight document
+                  to Big Deals USA in New York, there by 10:30 a.m. tomorrow.
                 </p>
               </div>
 
@@ -363,9 +364,9 @@ export default function GlobeshipLanding() {
                   Gabriel
                 </p>
                 <p className="mt-1 text-slate-200">
-                  Got it. I’ll use your usual ship-from address and find the
-                  best express option. What’s the contact email and phone at the
-                  destination?
+                  Got it. I&apos;ll use your usual ship-from address and find the
+                  best express option. What&apos;s the contact email and phone at
+                  the destination?
                 </p>
               </div>
 
@@ -381,7 +382,7 @@ export default function GlobeshipLanding() {
                   Gabriel
                 </p>
                 <p className="mt-1 text-slate-200">
-                  Done. The label’s in Nancy’s inbox and pickup is scheduled.
+                  Done. The label&apos;s in Nancy&apos;s inbox and pickup is scheduled.
                   Anything else before your flight, John?
                 </p>
               </div>
@@ -389,24 +390,27 @@ export default function GlobeshipLanding() {
               <div className="rounded-2xl border border-slate-800/80 bg-[#050509] px-4 py-3">
                 <p className="text-[11px] font-semibold text-sky-300">John</p>
                 <p className="mt-1 text-slate-200">
-                  You just saved my day. That’s exactly why I use Globeship
+                  You just saved my day. That&apos;s exactly why I use Globeship
                   Online.
                 </p>
               </div>
             </div>
 
             <p className="mt-4 text-[10px] text-slate-500">
-              This is the kind of “live at the label” moment the concierge is
+              This is the kind of &quot;live at the label&quot; moment the concierge is
               built for — labels and logistics handled while you keep moving.
             </p>
           </div>
         </div>
       </section>
-<VideoSection />
-      {/* Warehousing + 3PL micro-block */}
+
+      {/* Video – Groove player ready */}
+      <VideoSection />
+
+      {/* Warehousing + 3PL */}
       <section className="border-b border-orange-500/10 bg-[#050509]">
         <div className="mx-auto max-w-6xl px-6 py-12">
-          <div className="flex flex-col gap-4 rounded-2xl border border-orange-500/25 bg-black/70 p-5 md:flex-row md:items-center md:justify-between sm:p-6">
+          <div className="flex flex-col gap-4 rounded-2xl border border-orange-500/25 bg-black/70 p-5 sm:p-6 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-300">
                 Warehousing + 3PL
@@ -416,12 +420,12 @@ export default function GlobeshipLanding() {
               </h3>
               <p className="mt-2 max-w-xl text-xs text-slate-300 sm:text-sm">
                 Optional 300,000 sq ft pick &amp; pack warehouse in Milton,
-                Ontario — so you’re never trapped with a carrier just because
+                Ontario — so you&apos;re never trapped with a carrier just because
                 they hold your inventory. Migrate lanes and stock on your
                 timeline while the concierge keeps shipments flowing.
               </p>
             </div>
-            <div className="text-xs text-slate-300 md:text-right sm:text-sm">
+            <div className="text-xs text-slate-300 sm:text-sm md:text-right">
               <p>• B2B and D2C pick &amp; pack.</p>
               <p>• Container de-stuffing, palletizing, and returns.</p>
               <p>• Designed to plug directly into Globeship Online flows.</p>
@@ -430,33 +434,30 @@ export default function GlobeshipLanding() {
         </div>
       </section>
 
-      {/* Viral video placeholder */}
+      {/* Coming soon / viral video placeholder */}
       <section className="border-b border-orange-500/10 bg-[#050509]">
-        <div className="mx-auto max-w-6xl px-6 py-12">
-          <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr] lg:items-center">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-300">
-                Coming soon
-              </p>
-              <h3 className="mt-2 text-sm font-semibold text-slate-50 sm:text-base">
-                Your 60-second elevator pitch and viral-style video, on
-                autopilot.
-              </h3>
-              <p className="mt-3 max-w-xl text-xs text-slate-300 sm:text-sm">
-                Globeship Online will soon include a Free AI-generated “Elevator
-                Pitch” (AI Snapshot) as well as a viral-style brand video,
-                powered by NFC.ICU, that explains who you are, what you ship,
-                and why customers should choose you — in under a minute.
-              </p>
-            </div>
+        <div className="mx-auto grid max-w-6xl gap-6 px-6 py-12 lg:grid-cols-[1.1fr,0.9fr] lg:items-center">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-300">
+              Coming soon
+            </p>
+            <h3 className="mt-2 text-sm font-semibold text-slate-50 sm:text-base">
+              Your 60-second elevator pitch and viral-style video, on autopilot.
+            </h3>
+            <p className="mt-3 max-w-xl text-xs text-slate-300 sm:text-sm">
+              Globeship Online will soon include a free AI-generated &quot;Elevator
+              Pitch&quot; (AI Snapshot) as well as a viral-style brand video, powered
+              by NFC.ICU, that explains who you are, what you ship, and why
+              customers should choose you — in under a minute.
+            </p>
+          </div>
 
-            <div className="rounded-2xl border border-dashed border-orange-500/40 bg-black/50 px-6 py-8 text-center text-xs text-slate-400 sm:text-sm">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-300">
-                Free syndication for your Elevator Pitch and viral video to
-                NFC.ICU&apos;s marketplace for powerful link juice. Rank higher for
-                SEO and AI answer search results.
-              </p>
-            </div>
+          <div className="rounded-2xl border border-dashed border-orange-500/40 bg-black/50 px-6 py-8 text-center text-xs text-slate-400 sm:text-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-300">
+              Free syndication for your Elevator Pitch and viral video to
+              NFC.ICU&apos;s marketplace for powerful link juice. Rank higher for
+              SEO and AI answer search results.
+            </p>
           </div>
         </div>
       </section>
@@ -466,11 +467,11 @@ export default function GlobeshipLanding() {
         <div className="mx-auto max-w-6xl px-6 py-16 lg:py-20">
           <div className="max-w-3xl">
             <h2 className="text-2xl font-semibold text-slate-50 sm:text-3xl">
-              10 reasons your shipping provider isn’t helping you grow.
+              10 reasons your shipping provider isn&apos;t helping you grow.
             </h2>
             <p className="mt-3 text-sm text-slate-300">
               If your current shipping partner only provides you with rates,
-              your company risks not being optimized for the paradigm AI Era
+              your company risks not being optimized for the paradigm AI era
               shift. This will kill many a business — similar to companies that
               did not adapt to the Internet. Globeship Online includes
               intelligence, automation, and growth — by default.
@@ -489,16 +490,21 @@ export default function GlobeshipLanding() {
               <p className="mt-2 text-slate-300">
                 Most providers never help you explain what makes you different.
                 With Globeship Online, every active shipper can unlock an
-                AI-crafted elevator pitch (AI Snapshot).
+                AI-crafted elevator pitch (AI Snapshot) — a clear, sharp story
+                you can use on your site, emails, and sales conversations.
               </p>
             </div>
 
             {/* 02 */}
             <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
-              <p className="font-semibold text-orange-200">02 · No review engine</p>
+              <p className="font-semibold text-orange-200">
+                02 · No review engine
+              </p>
               <p className="mt-2 text-slate-300">
-                Globeship Online helps you turn happy shippers into public proof
-                — with AI-assisted review prompts and reusable copy.
+                Traditional carriers ship parcels and move on. Globeship Online
+                helps you turn happy shippers into public proof — with
+                AI-assisted review prompts and copy you can reuse across your
+                funnel.
               </p>
             </div>
 
@@ -508,9 +514,12 @@ export default function GlobeshipLanding() {
                 03 · No video selling for you 24/7
               </p>
               <p className="mt-2 text-slate-300">
-                NFC.ICU’s video engine can generate a short video that explains
-                who you are, what you do, and why buyers should choose you — in
-                under 60 seconds.
+                Your current provider talks in tracking numbers. Globeship
+                Online, via NFC.ICU&apos;s video engine, can generate a short video
+                that explains who you are, what you do, and why buyers should
+                choose you — in under 60 seconds. Syndicate your Snapshot and
+                video to NFC.ICU&apos;s marketplace for powerful ranking link juice
+                for SEO and AI search results.
               </p>
             </div>
 
@@ -520,8 +529,10 @@ export default function GlobeshipLanding() {
                 04 · No affiliate program built in
               </p>
               <p className="mt-2 text-slate-300">
-                Globeship Online connects you into an affiliate-ready flow so
-                partners, influencers, or happy customers can spread the word.
+                Most shippers leave referrals to chance. Globeship Online
+                connects you into an affiliate-ready flow so partners,
+                influencers, or happy customers can spread the word — with
+                tracking and payouts handled.
               </p>
             </div>
 
@@ -531,18 +542,27 @@ export default function GlobeshipLanding() {
                 05 · No conversion-optimized cart
               </p>
               <p className="mt-2 text-slate-300">
-                Globeship Online can pair your shipping with checkout patterns
-                that are designed to convert, not just calculate postage.
+                Your provider doesn&apos;t care what happens on your product page.
+                Globeship Online can pair your shipping with a WooCommerce-ready
+                checkout and funnel patterns that are designed to convert, not
+                just calculate postage.
               </p>
             </div>
 
             {/* 06 */}
             <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
-              <p className="font-semibold text-orange-200">06 · No visibility boost</p>
+              <p className="font-semibold text-orange-200">
+                06 · No visibility boost
+              </p>
               <p className="mt-2 text-slate-300">
-                Active shippers can tap into exposure inside the Globeship /
-                NFC.ICU ecosystem — plus AI search answer results across major
-                platforms.
+                Carriers rarely help you get discovered. Active shippers with
+                Globeship Online can tap into exposure inside the Globeship.ca /
+                NFC.ICU ecosystem — putting your brand in front of buyers who
+                are already in-market. Also, using Globeship Online&apos;s backend
+                AI algorithms powered by NFC.ICU allows your company to be
+                found online through AI search answer results like ChatGPT,
+                Perplexity, Claude, Siri, Copilot, Gemini, Alexa and many more
+                platforms. Does your current shipping provider offer the same?
               </p>
             </div>
 
@@ -552,8 +572,10 @@ export default function GlobeshipLanding() {
                 07 · No AI rep guiding your visitors
               </p>
               <p className="mt-2 text-slate-300">
-                NFC.ICU’s Instant Engage™ layer can guide, qualify, and educate
-                your traffic instead of sending people to a dead-end form.
+                A static website treats every visitor the same. With NFC.ICU&apos;s
+                Instant Engage layer, your traffic can be guided by an AI rep
+                that qualifies, routes, and educates — instead of sending people
+                to a dead-end form.
               </p>
             </div>
 
@@ -563,19 +585,23 @@ export default function GlobeshipLanding() {
                 08 · No true shipping concierge
               </p>
               <p className="mt-2 text-slate-300">
-                The concierge reads your shipment list, applies your rules, and
-                returns smart defaults ready to approve.
+                Logging into carrier portals and guessing is not a strategy. The
+                Globeship Online concierge reads your shipment list, applies
+                your rules, and returns smart defaults — best rate, best margin,
+                or best experience — ready to approve.
               </p>
             </div>
 
             {/* 09 */}
             <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
               <p className="font-semibold text-orange-200">
-                09 · No advisor / business-in-a-box layer
+                09 · No advisor or business-in-a-box layer
               </p>
               <p className="mt-2 text-slate-300">
-                Globeship Online + NFC.ICU can surface offers, upsell ideas, and
-                funnel tweaks that match the way you ship and sell.
+                Most providers treat you like an account number. Globeship
+                Online + NFC.ICU can act like an AI advisor — surfacing offers,
+                upsell ideas, and funnel tweaks that match the way you actually
+                ship and sell.
               </p>
             </div>
 
@@ -585,8 +611,10 @@ export default function GlobeshipLanding() {
                 10 · No growth loop connected to your shipments
               </p>
               <p className="mt-2 text-slate-300">
-                Shipping activity feeds back into reps, video, funnels, and
-                analytics — so every month you’re sharper than the last.
+                In a traditional setup, data dies at the label. With Globeship
+                Online, shipping activity feeds back into reps, video, funnels,
+                and analytics — so every month you&apos;re a little sharper than the
+                last, not starting from zero.
               </p>
             </div>
           </div>
@@ -595,4 +623,3 @@ export default function GlobeshipLanding() {
     </main>
   );
 }
-
