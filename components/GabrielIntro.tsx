@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 export default function GabrielIntro() {
   return (
     <section className="mx-auto max-w-6xl px-4 pb-14 pt-6 sm:px-6">
@@ -41,7 +39,7 @@ export default function GabrielIntro() {
 
             <img
               src="/gabriel.png"
-              alt="Gabriel — AI Shipping Concierge"
+              alt="Gabriel - AI Shipping Concierge"
               className="
                 relative z-10 h-full w-full object-cover
                 transition-all duration-500 ease-out
@@ -56,10 +54,8 @@ export default function GabrielIntro() {
         </div>
 
         {/* Copy */}
-        <div>
-          <h3 className="text-xl font-semibold text-white">
-            Meet Gabriel
-          </h3>
+        <div className="text-center md:text-left">
+          <h3 className="text-xl font-semibold text-white">Meet Gabriel</h3>
 
           <p className="mt-1 text-sm font-semibold text-orange-400">
             Your AI Shipping Concierge
@@ -70,11 +66,22 @@ export default function GabrielIntro() {
           </p>
 
           <p className="mt-4 text-sm leading-relaxed text-slate-200">
-            Gabriel is Globeship’s most unlikely self-appointed spokesperson —
+            Gabriel is Globeship's most unlikely self-appointed spokesperson -
             sharp, sarcastic, and surprisingly helpful.
           </p>
 
           <p className="mt-3 text-sm leading-relaxed text-slate-200">
             A gourmet hot sauce Shopify entrepreneur at heart, Gabriel travels
             the globe helping frustrated shippers untangle rates, carriers,
-            customs, and last-mile chaos — with zero patience for ba
+            customs, and last-mile chaos - with zero patience for bad logistics.
+          </p>
+
+          <p className="mt-3 text-sm leading-relaxed text-slate-200">
+            Ask for a quote, approve it, and Gabriel will generate your shipping
+            label instantly.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
