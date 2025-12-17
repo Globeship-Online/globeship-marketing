@@ -52,7 +52,7 @@ export default function VideoSection() {
             {/* YouTube iframe */}
             <iframe
               className="absolute inset-0 h-full w-full"
-              src="https://www.youtube.com/embed/WrncV_w7f20"
+              src="https://www.youtube.com/embed/ik0jbnp2ihY"
               title="Globeship Online — Your Shipping Partner"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
