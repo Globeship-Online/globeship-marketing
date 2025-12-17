@@ -190,3 +190,408 @@ export default function GlobeshipLanding() {
             </h2>
 
             <p className="mt-4 max-w-xl text-sm text-slate-300 sm:text-base">
+              We turn every shipment into a chance to win a repeat customer —
+              with automation and AI most carriers never talk about.
+            </p>
+
+            <ul className="mt-6 space-y-3 text-sm text-slate-200">
+              <li>• An AI Shipping Concierge that handles quote → choice → label.</li>
+              <li>• Batch quotes from CSV or order feeds (no more manual typing).</li>
+              <li>• Smart recommendations: cheapest, fastest, or best-margin.</li>
+              <li>• Post-purchase flows wired to NFC.ICU reps and video.</li>
+            </ul>
+          </div>
+
+          <div className="grid gap-4 text-sm">
+            <div className="rounded-2xl border border-orange-500/25 bg-black/70 px-4 py-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-300">
+                01 · More than “just rates”
+              </p>
+              <p className="mt-2 text-slate-200">
+                If your current partner only talks about rates, you’re already
+                behind. Globeship Online bundles the marketing and automation
+                engine in for active shippers.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-orange-500/25 bg-black/70 px-4 py-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-300">
+                02 · A ton on top of ops
+              </p>
+              <p className="mt-2 text-slate-200">
+                Globeship Online + NFC.ICU gives you reps, video, affiliate
+                flows, and funnels — all riding on top of your existing shipping
+                operations.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-orange-500/25 bg-black/70 px-4 py-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-300">
+                03 · Easy to try
+              </p>
+              <p className="mt-2 text-slate-200">
+                Start with one lane or one warehouse. Your team still sees
+                familiar labels and carriers — the AI just does the heavy
+                lifting in the background.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="border-b border-orange-500/10 bg-black">
+        <div className="mx-auto max-w-6xl px-6 py-16 lg:py-20">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-semibold text-slate-50 sm:text-3xl">
+              How the AI Shipping Concierge works
+            </h2>
+            <p className="mt-4 text-sm text-slate-300 sm:text-base">
+              High-level only — no dev work needed. We plug into your Globeship
+              Online account and handle the logic layer.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-300">
+                Step 1
+              </p>
+              <h3 className="mt-2 text-sm font-semibold text-slate-50">
+                Drop in shipments
+              </h3>
+              <p className="mt-2 text-xs text-slate-300 sm:text-sm">
+                Upload a CSV, sync your orders, or paste a few test shipments.
+                The concierge ingests everything in seconds.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-300">
+                Step 2
+              </p>
+              <h3 className="mt-2 text-sm font-semibold text-slate-50">
+                Get guided recommendations
+              </h3>
+              <p className="mt-2 text-xs text-slate-300 sm:text-sm">
+                See best carrier/service per shipment — or per batch — with
+                clear trade-offs between speed, cost, and margin.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-300">
+                Step 3
+              </p>
+              <h3 className="mt-2 text-sm font-semibold text-slate-50">
+                Approve and print
+              </h3>
+              <p className="mt-2 text-xs text-slate-300 sm:text-sm">
+                Approve in one click. Labels, pickups, and notifications are
+                triggered through Globeship Online — your ops keep moving.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Uber story – concierge snapshot */}
+      <section className="border-b border-orange-500/10 bg-[#050509]">
+        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[1.2fr,1fr] lg:items-start lg:py-20">
+          <div>
+            <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+              A shipping panic, solved in the back of an Uber.
+            </h2>
+            <p className="mt-4 max-w-xl text-sm text-slate-300 sm:text-base">
+              John is on the way to the airport when he realizes he forgot to
+              send a critical contract that must arrive by 10:30 a.m. tomorrow.
+              No laptop, no time to log into a portal — just his phone and the
+              Globeship Online AI Shipping Concierge.
+            </p>
+            <p className="mt-4 max-w-xl text-sm text-slate-300 sm:text-base">
+              He opens the concierge, speaks to his AI rep Gabriel, and in under
+              a minute the label is generated, emailed to his assistant, and the
+              pickup is scheduled. John goes back to his ride — no panic, no
+              missed deadline.
+            </p>
+
+            <ul className="mt-6 space-y-2 text-sm text-slate-200">
+              <li>• No portal login or manual quoting — just talk or text.</li>
+              <li>• AI remembers your usual ship-from details and preferences.</li>
+              <li>• Labels can be emailed or texted to anyone on your team.</li>
+              <li>• Perfect for last-minute “oh no” shipments from anywhere.</li>
+            </ul>
+
+            <div className="mt-8">
+              <a
+                href="https://ship.globeship.ca"
+                className="inline-flex items-center justify-center rounded-full bg-orange-500 px-6 py-2.5 text-xs font-semibold text-black shadow-md shadow-orange-500/40 transition hover:bg-orange-400 sm:text-sm"
+              >
+                Talk to Gabriel — the AI Shipping Concierge
+              </a>
+            </div>
+          </div>
+
+          {/* Dialogue card */}
+          <div className="rounded-3xl border border-orange-500/25 bg-black/70 p-5 shadow-xl shadow-black/60 sm:p-6">
+            <p className="mb-3 text-[10px] uppercase tracking-[0.2em] text-orange-300">
+              Concierge snapshot · “Gabriel” helping John
+            </p>
+
+            <div className="space-y-3 text-xs sm:text-sm">
+              <div className="rounded-2xl border border-slate-800 bg-[#0b0b11] px-4 py-3">
+                <p className="text-[11px] font-semibold text-emerald-300">
+                  Gabriel
+                </p>
+                <p className="mt-1 text-slate-200">
+                  Hey John, I’ve got you. Tell me where this contract needs to
+                  go and when it has to arrive.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800/80 bg-[#050509] px-4 py-3">
+                <p className="text-[11px] font-semibold text-sky-300">John</p>
+                <p className="mt-1 text-slate-200">
+                  I’m in an Uber to the airport. I need an overnight document to
+                  Big Deals USA in New York, there by 10:30 a.m. tomorrow.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800 bg-[#0b0b11] px-4 py-3">
+                <p className="text-[11px] font-semibold text-emerald-300">
+                  Gabriel
+                </p>
+                <p className="mt-1 text-slate-200">
+                  Got it. I’ll use your usual ship-from address and find the
+                  best express option. What’s the contact email and phone at the
+                  destination?
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800/80 bg-[#050509] px-4 py-3">
+                <p className="text-[11px] font-semibold text-sky-300">John</p>
+                <p className="mt-1 text-slate-200">
+                  Send the label to my assistant at nancy@visioncorp.com.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800 bg-[#0b0b11] px-4 py-3">
+                <p className="text-[11px] font-semibold text-emerald-300">
+                  Gabriel
+                </p>
+                <p className="mt-1 text-slate-200">
+                  Done. The label’s in Nancy’s inbox and pickup is scheduled.
+                  Anything else before your flight, John?
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800/80 bg-[#050509] px-4 py-3">
+                <p className="text-[11px] font-semibold text-sky-300">John</p>
+                <p className="mt-1 text-slate-200">
+                  You just saved my day. That’s exactly why I use Globeship
+                  Online.
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-4 text-[10px] text-slate-500">
+              This is the kind of “live at the label” moment the concierge is
+              built for — labels and logistics handled while you keep moving.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Warehousing + 3PL micro-block */}
+      <section className="border-b border-orange-500/10 bg-[#050509]">
+        <div className="mx-auto max-w-6xl px-6 py-12">
+          <div className="flex flex-col gap-4 rounded-2xl border border-orange-500/25 bg-black/70 p-5 md:flex-row md:items-center md:justify-between sm:p-6">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-300">
+                Warehousing + 3PL
+              </p>
+              <h3 className="mt-2 text-sm font-semibold text-slate-50 sm:text-base">
+                Storage without getting locked into the wrong carrier.
+              </h3>
+              <p className="mt-2 max-w-xl text-xs text-slate-300 sm:text-sm">
+                Optional 300,000 sq ft pick &amp; pack warehouse in Milton,
+                Ontario — so you’re never trapped with a carrier just because
+                they hold your inventory. Migrate lanes and stock on your
+                timeline while the concierge keeps shipments flowing.
+              </p>
+            </div>
+            <div className="text-xs text-slate-300 md:text-right sm:text-sm">
+              <p>• B2B and D2C pick &amp; pack.</p>
+              <p>• Container de-stuffing, palletizing, and returns.</p>
+              <p>• Designed to plug directly into Globeship Online flows.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Viral video placeholder */}
+      <section className="border-b border-orange-500/10 bg-[#050509]">
+        <div className="mx-auto max-w-6xl px-6 py-12">
+          <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr] lg:items-center">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-300">
+                Coming soon
+              </p>
+              <h3 className="mt-2 text-sm font-semibold text-slate-50 sm:text-base">
+                Your 60-second elevator pitch and viral-style video, on
+                autopilot.
+              </h3>
+              <p className="mt-3 max-w-xl text-xs text-slate-300 sm:text-sm">
+                Globeship Online will soon include a Free AI-generated “Elevator
+                Pitch” (AI Snapshot) as well as a viral-style brand video,
+                powered by NFC.ICU, that explains who you are, what you ship,
+                and why customers should choose you — in under a minute.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-dashed border-orange-500/40 bg-black/50 px-6 py-8 text-center text-xs text-slate-400 sm:text-sm">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-300">
+                Free syndication for your Elevator Pitch and viral video to
+                NFC.ICU&apos;s marketplace for powerful link juice. Rank higher for
+                SEO and AI answer search results.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 10 reasons section */}
+      <section className="bg-black">
+        <div className="mx-auto max-w-6xl px-6 py-16 lg:py-20">
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-semibold text-slate-50 sm:text-3xl">
+              10 reasons your shipping provider isn’t helping you grow.
+            </h2>
+            <p className="mt-3 text-sm text-slate-300">
+              If your current shipping partner only provides you with rates,
+              your company risks not being optimized for the paradigm AI Era
+              shift. This will kill many a business — similar to companies that
+              did not adapt to the Internet. Globeship Online includes
+              intelligence, automation, and growth — by default.
+            </p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.22em] text-orange-300">
+              Rates are table stakes. Intelligence is the edge.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 text-xs sm:text-sm md:grid-cols-2">
+            {/* 01 */}
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
+              <p className="font-semibold text-orange-200">
+                01 · No elevator pitch working for you
+              </p>
+              <p className="mt-2 text-slate-300">
+                Most providers never help you explain what makes you different.
+                With Globeship Online, every active shipper can unlock an
+                AI-crafted elevator pitch (AI Snapshot).
+              </p>
+            </div>
+
+            {/* 02 */}
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
+              <p className="font-semibold text-orange-200">02 · No review engine</p>
+              <p className="mt-2 text-slate-300">
+                Globeship Online helps you turn happy shippers into public proof
+                — with AI-assisted review prompts and reusable copy.
+              </p>
+            </div>
+
+            {/* 03 */}
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
+              <p className="font-semibold text-orange-200">
+                03 · No video selling for you 24/7
+              </p>
+              <p className="mt-2 text-slate-300">
+                NFC.ICU’s video engine can generate a short video that explains
+                who you are, what you do, and why buyers should choose you — in
+                under 60 seconds.
+              </p>
+            </div>
+
+            {/* 04 */}
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
+              <p className="font-semibold text-orange-200">
+                04 · No affiliate program built in
+              </p>
+              <p className="mt-2 text-slate-300">
+                Globeship Online connects you into an affiliate-ready flow so
+                partners, influencers, or happy customers can spread the word.
+              </p>
+            </div>
+
+            {/* 05 */}
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
+              <p className="font-semibold text-orange-200">
+                05 · No conversion-optimized cart
+              </p>
+              <p className="mt-2 text-slate-300">
+                Globeship Online can pair your shipping with checkout patterns
+                that are designed to convert, not just calculate postage.
+              </p>
+            </div>
+
+            {/* 06 */}
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
+              <p className="font-semibold text-orange-200">06 · No visibility boost</p>
+              <p className="mt-2 text-slate-300">
+                Active shippers can tap into exposure inside the Globeship /
+                NFC.ICU ecosystem — plus AI search answer results across major
+                platforms.
+              </p>
+            </div>
+
+            {/* 07 */}
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
+              <p className="font-semibold text-orange-200">
+                07 · No AI rep guiding your visitors
+              </p>
+              <p className="mt-2 text-slate-300">
+                NFC.ICU’s Instant Engage™ layer can guide, qualify, and educate
+                your traffic instead of sending people to a dead-end form.
+              </p>
+            </div>
+
+            {/* 08 */}
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
+              <p className="font-semibold text-orange-200">
+                08 · No true shipping concierge
+              </p>
+              <p className="mt-2 text-slate-300">
+                The concierge reads your shipment list, applies your rules, and
+                returns smart defaults ready to approve.
+              </p>
+            </div>
+
+            {/* 09 */}
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
+              <p className="font-semibold text-orange-200">
+                09 · No advisor / business-in-a-box layer
+              </p>
+              <p className="mt-2 text-slate-300">
+                Globeship Online + NFC.ICU can surface offers, upsell ideas, and
+                funnel tweaks that match the way you ship and sell.
+              </p>
+            </div>
+
+            {/* 10 */}
+            <div className="rounded-2xl border border-orange-500/25 bg-[#050509] p-4 sm:p-5">
+              <p className="font-semibold text-orange-200">
+                10 · No growth loop connected to your shipments
+              </p>
+              <p className="mt-2 text-slate-300">
+                Shipping activity feeds back into reps, video, funnels, and
+                analytics — so every month you’re sharper than the last.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
