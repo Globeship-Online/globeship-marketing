@@ -19,11 +19,8 @@ export default function GabrielIntro() {
             {/* Ambient glow */}
             <div
               className="
-                pointer-events-none absolute inset-0
-                rounded-full
-                bg-orange-500/20
-                blur-xl
-                opacity-40
+                pointer-events-none absolute inset-0 rounded-full
+                bg-orange-500/20 blur-xl opacity-40
                 animate-pulse
               "
             />
@@ -44,11 +41,12 @@ export default function GabrielIntro() {
         {/* Copy */}
         <div className="text-center md:text-left">
           <h3 className="text-xl font-semibold text-white">Meet Gabriel</h3>
+
           <p className="mt-1 text-sm font-medium text-orange-400">
             Your AI Shipping Concierge
           </p>
 
-          <p className="mt-2 text-sm text-white/75 italic">
+          <p className="mt-2 text-sm italic text-white/75">
             He takes shipping seriously. Himself? Less so.
           </p>
 
@@ -63,5 +61,18 @@ export default function GabrielIntro() {
               <span className="font-medium text-white/90">
                 gourmet hot sauce Shopify entrepreneur at heart
               </span>
-              , Gabriel now travels the globe helping frustrated shippers
-              untangle rates, carriers, customs, and last-m
+              , Gabriel now travels the globe helping frustrated shippers untangle
+              rates, carriers, customs, and last-mile chaos — with zero patience
+              for bad logistics.
+            </p>
+
+            <p>
+              Ask for a quote, approve it, and Gabriel will generate your shipping
+              label instantly.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
