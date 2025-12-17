@@ -32,7 +32,7 @@ export default function SiteHeader() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  // Lock body scroll while open
+  // Lock body scroll
   React.useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -40,7 +40,7 @@ export default function SiteHeader() {
     };
   }, [open]);
 
-  const MobileMenuFullScreen = () => (
+  const MobileMenu = () => (
     <div className="fixed inset-0 z-[9999] md:hidden">
       {/* Backdrop */}
       <button
@@ -49,7 +49,7 @@ export default function SiteHeader() {
         onClick={() => setOpen(false)}
       />
 
-      {/* Full-screen panel */}
+      {/* Panel (full screen) */}
       <div
         className="absolute inset-0 bg-[#050509]/98 backdrop-blur-xl"
         role="dialog"
@@ -102,7 +102,7 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050509]/70 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        {/* Brand (logo on all pages EXCEPT home) */}
+        {/* Brand */}
         <Link
           href="/"
           className="inline-flex items-center gap-3 rounded-xl px-2 py-1 transition hover:bg-white/5"
@@ -118,7 +118,6 @@ export default function SiteHeader() {
               />
             </span>
           )}
-
           <span className="text-sm font-semibold tracking-tight text-white/90">
             Globeship Online
           </span>
@@ -154,5 +153,14 @@ export default function SiteHeader() {
           type="button"
           onClick={() => setOpen(true)}
           className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white/90 transition hover:bg-white/10 md:hidden"
-          aria-label="Open m
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+      </div>
 
+      {/* Portal */}
+      {mounted && open ? createPortal(<MobileMenu />, document.body) : null}
+    </header>
+  );
+}
