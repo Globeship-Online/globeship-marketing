@@ -402,7 +402,7 @@ export default function GlobeshipLanding() {
           </div>
         </div>
       </section>
-
+<VideoSection />
       {/* Warehousing + 3PL micro-block */}
       <section className="border-b border-orange-500/10 bg-[#050509]">
         <div className="mx-auto max-w-6xl px-6 py-12">
