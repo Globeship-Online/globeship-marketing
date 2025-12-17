@@ -21,22 +21,31 @@ export default function SiteHeader() {
 
   const [open, setOpen] = React.useState(false);
 
-  // For animation lifecycle (render while closing)
+  // Mounting + animation lifecycle
   const [mounted, setMounted] = React.useState(false);
   const [renderMenu, setRenderMenu] = React.useState(false);
   const [active, setActive] = React.useState(false);
 
+  // Drag-to-close state
+  const [dragX, setDragX] = React.useState(0);
+  const draggingRef = React.useRef(false);
+  const startXRef = React.useRef(0);
+  const lastXRef = React.useRef(0);
+
   React.useEffect(() => setMounted(true), []);
 
-  // When open toggles, drive animation states
+  // Drive open/close animation and keep menu mounted while closing
   React.useEffect(() => {
     if (open) {
       setRenderMenu(true);
-      // next frame so transitions apply
+      setDragX(0);
       requestAnimationFrame(() => setActive(true));
     } else {
       setActive(false);
-      const t = window.setTimeout(() => setRenderMenu(false), ANIM_MS);
+      const t = window.setTimeout(() => {
+        setRenderMenu(false);
+        setDragX(0);
+      }, ANIM_MS);
       return () => window.clearTimeout(t);
     }
   }, [open]);
@@ -51,7 +60,7 @@ export default function SiteHeader() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  // Lock body scroll while menu is shown (including during close animation)
+  // Lock body scroll while menu is visible (including during close animation)
   React.useEffect(() => {
     document.body.style.overflow = renderMenu ? "hidden" : "";
     return () => {
@@ -59,71 +68,132 @@ export default function SiteHeader() {
     };
   }, [renderMenu]);
 
-  const MobileMenuFullScreen = () => (
-    <div className="fixed inset-0 z-[9999] md:hidden">
-      {/* Backdrop (fade) */}
-      <button
-        className={[
-          "absolute inset-0 bg-black/70 transition-opacity duration-[240ms]",
-          active ? "opacity-100" : "opacity-0",
-        ].join(" ")}
-        aria-label="Close menu overlay"
-        onClick={() => setOpen(false)}
-      />
+  const closeMenu = () => setOpen(false);
 
-      {/* Full-screen surface (slide in from right) */}
-      <div
-        className={[
-          "absolute inset-0 bg-[#050509]/98 backdrop-blur-xl",
-          "transition-transform duration-[240ms] ease-out will-change-transform",
-          active ? "translate-x-0" : "translate-x-full",
-        ].join(" ")}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Mobile menu"
-      >
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
-          <span className="text-sm font-semibold text-white/90">Menu</span>
-          <button
-            onClick={() => setOpen(false)}
-            className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 transition hover:bg-white/10"
-            aria-label="Close menu"
-          >
-            Close
-          </button>
-        </div>
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    // Only left mouse button if using a mouse
+    if (e.pointerType === "mouse" && e.button !== 0) return;
 
-        <div className="px-5 py-5">
-          <div className="space-y-1">
-            {NAV.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="block rounded-xl px-3 py-3 text-base font-medium text-white/85 transition hover:bg-white/5 hover:text-white"
-              >
-                {item.label}
-              </Link>
-            ))}
+    draggingRef.current = true;
+    startXRef.current = e.clientX;
+    lastXRef.current = e.clientX;
+
+    // Capture pointer so move/up events keep firing
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // ignore
+    }
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggingRef.current) return;
+
+    const dx = Math.max(0, e.clientX - startXRef.current); // drag right only
+    lastXRef.current = e.clientX;
+    setDragX(dx);
+  };
+
+  const onPointerUp = () => {
+    if (!draggingRef.current) return;
+    draggingRef.current = false;
+
+    const w = typeof window !== "undefined" ? window.innerWidth : 390;
+    const threshold = Math.min(140, w * 0.25); // close if dragged enough
+
+    if (dragX > threshold) {
+      setDragX(0);
+      closeMenu();
+      return;
+    }
+
+    // Snap back open
+    setDragX(0);
+  };
+
+  const MobileMenuFullScreen = () => {
+    // When inactive (closing), slide out to the right.
+    // When active, slide in; during drag, translate by dragX.
+    const baseTranslate = active ? 0 : (typeof window !== "undefined" ? window.innerWidth : 1000);
+    const translateX = active ? dragX : baseTranslate;
+
+    // Fade backdrop with drag progress
+    const w = typeof window !== "undefined" ? window.innerWidth : 390;
+    const progress = Math.min(1, dragX / Math.max(1, w));
+    const backdropOpacity = active ? 1 - progress * 0.6 : 0; // slightly lighter as you drag
+
+    return (
+      <div className="fixed inset-0 z-[9999] md:hidden">
+        {/* Backdrop */}
+        <button
+          className="absolute inset-0 bg-black/70 transition-opacity duration-[240ms]"
+          style={{ opacity: backdropOpacity }}
+          aria-label="Close menu overlay"
+          onClick={closeMenu}
+        />
+
+        {/* Full-screen surface (drag anywhere to close) */}
+        <div
+          className={[
+            "absolute inset-0 bg-[#050509]/98 backdrop-blur-xl",
+            "will-change-transform",
+            draggingRef.current ? "" : "transition-transform duration-[240ms] ease-out",
+          ].join(" ")}
+          style={{ transform: `translateX(${translateX}px)` }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile menu"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
+        >
+          <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+            <span className="text-sm font-semibold text-white/90">Menu</span>
+            <button
+              onClick={closeMenu}
+              className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 transition hover:bg-white/10"
+              aria-label="Close menu"
+            >
+              Close
+            </button>
           </div>
 
-          <div className="mt-6 border-t border-white/10 pt-6">
-            <a
-              href="https://ship.globeship.ca"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-2xl bg-orange-500 px-5 py-4 text-base font-semibold text-black transition hover:bg-orange-400"
-            >
-              Start Shipping
-            </a>
-            <p className="mt-3 text-xs text-white/50">
-              Rates are table stakes. Intelligence is the edge.
-            </p>
+          <div className="px-5 py-5">
+            <div className="space-y-1">
+              {NAV.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMenu}
+                  className="block rounded-xl px-3 py-3 text-base font-medium text-white/85 transition hover:bg-white/5 hover:text-white"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-6 border-t border-white/10 pt-6">
+              <a
+                href="https://ship.globeship.ca"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex w-full items-center justify-center rounded-2xl bg-orange-500 px-5 py-4 text-base font-semibold text-black transition hover:bg-orange-400"
+              >
+                Start Shipping
+              </a>
+              <p className="mt-3 text-xs text-white/50">
+                Rates are table stakes. Intelligence is the edge.
+              </p>
+              <p className="mt-2 text-[11px] text-white/35">
+                Tip: swipe right to close.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050509]/70 backdrop-blur-xl">
@@ -131,66 +201,4 @@ export default function SiteHeader() {
         {/* Brand (logo on all pages EXCEPT home) */}
         <Link
           href="/"
-          className="inline-flex items-center gap-3 rounded-xl px-2 py-1 transition hover:bg-white/5"
-          aria-label="Globeship Online Home"
-        >
-          {!isHome && (
-            <span className="inline-flex items-center justify-center rounded-full bg-white/95 px-3 py-1.5 shadow-[0_10px_28px_rgba(0,0,0,0.45)] ring-1 ring-black/5 transition hover:bg-white hover:shadow-[0_14px_36px_rgba(0,0,0,0.55)]">
-              <img
-                src="/globeship-logo.png"
-                alt="Globeship Online"
-                className="h-8 w-auto select-none"
-                draggable={false}
-              />
-            </span>
-          )}
-
-          <span className="text-sm font-semibold tracking-tight text-white/90">
-            Globeship Online
-          </span>
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 md:flex">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-xl px-3 py-2 text-sm font-medium text-white/70 transition hover:bg-white/5 hover:text-white"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Desktop CTA */}
-        <div className="hidden md:flex">
-          <a
-            href="https://ship.globeship.ca"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-2xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400"
-          >
-            Start Shipping
-          </a>
-        </div>
-
-        {/* Mobile button */}
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white/90 transition hover:bg-white/10 md:hidden"
-          aria-label="Open menu"
-        >
-          ☰
-        </button>
-      </div>
-
-      {/* Mobile menu (Portaled to body) */}
-      {mounted && renderMenu
-        ? createPortal(<MobileMenuFullScreen />, document.body)
-        : null}
-    </header>
-  );
-}
-
+          className="inline-flex items-cent
