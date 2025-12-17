@@ -13,44 +13,14 @@ const NAV = [
   { href: "/contact-us", label: "Contact Us" },
 ];
 
-const ANIM_MS = 280;
-const EASE = "cubic-bezier(0.2, 0.8, 0.2, 1)";
-
 export default function SiteHeader() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
   const [open, setOpen] = React.useState(false);
-
-  // Portal / lifecycle
   const [mounted, setMounted] = React.useState(false);
-  const [renderMenu, setRenderMenu] = React.useState(false);
-  const [active, setActive] = React.useState(false);
-
-  // Swipe (touch) state
-  const [dragX, setDragX] = React.useState(0);
-  const touchStartXRef = React.useRef(0);
-  const draggingRef = React.useRef(false);
 
   React.useEffect(() => setMounted(true), []);
-
-  // Open/close lifecycle with a tiny delay to ensure transitions always fire
-  React.useEffect(() => {
-    if (open) {
-      setRenderMenu(true);
-      setDragX(0);
-      setActive(false);
-      const t = window.setTimeout(() => setActive(true), 10);
-      return () => window.clearTimeout(t);
-    } else {
-      setActive(false);
-      const t = window.setTimeout(() => {
-        setRenderMenu(false);
-        setDragX(0);
-      }, ANIM_MS);
-      return () => window.clearTimeout(t);
-    }
-  }, [open]);
 
   // Close on Escape
   React.useEffect(() => {
@@ -62,95 +32,127 @@ export default function SiteHeader() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  // Lock body scroll while menu is visible
+  // Lock body scroll while open
   React.useEffect(() => {
-    document.body.style.overflow = renderMenu ? "hidden" : "";
+    document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [renderMenu]);
+  }, [open]);
 
-  const closeMenu = () => setOpen(false);
+  const MobileMenuFullScreen = () => (
+    <div className="fixed inset-0 z-[9999] md:hidden">
+      {/* Backdrop */}
+      <button
+        className="absolute inset-0 bg-black/70"
+        aria-label="Close menu overlay"
+        onClick={() => setOpen(false)}
+      />
 
-  // --- Touch handlers (more reliable on Android than pointer for this use) ---
-  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    // only one-finger drags
-    if (e.touches.length !== 1) return;
-    draggingRef.current = true;
-    touchStartXRef.current = e.touches[0].clientX;
-  };
+      {/* Full-screen panel */}
+      <div
+        className="absolute inset-0 bg-[#050509]/98 backdrop-blur-xl"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile menu"
+      >
+        <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+          <span className="text-sm font-semibold text-white/90">Menu</span>
+          <button
+            onClick={() => setOpen(false)}
+            className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 transition hover:bg-white/10"
+            aria-label="Close menu"
+          >
+            Close
+          </button>
+        </div>
 
-  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (!draggingRef.current) return;
-    if (e.touches.length !== 1) return;
+        <div className="px-5 py-5">
+          <div className="space-y-1">
+            {NAV.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="block rounded-xl px-3 py-3 text-base font-medium text-white/85 transition hover:bg-white/5 hover:text-white"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
 
-    const dx = Math.max(0, e.touches[0].clientX - touchStartXRef.current);
-    setDragX(dx);
+          <div className="mt-6 border-t border-white/10 pt-6">
+            <a
+              href="https://ship.globeship.ca"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex w-full items-center justify-center rounded-2xl bg-orange-500 px-5 py-4 text-base font-semibold text-black transition hover:bg-orange-400"
+            >
+              Start Shipping
+            </a>
+            <p className="mt-3 text-xs text-white/50">
+              Rates are table stakes. Intelligence is the edge.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
-    // prevent page from interpreting as scroll/gesture
-    e.preventDefault();
-  };
-
-  const onTouchEnd = () => {
-    if (!draggingRef.current) return;
-    draggingRef.current = false;
-
-    const w = typeof window !== "undefined" ? window.innerWidth : 390;
-    const threshold = Math.min(160, w * 0.28);
-
-    if (dragX > threshold) {
-      setDragX(0);
-      closeMenu();
-      return;
-    }
-    setDragX(0);
-  };
-
-  const MobileMenuFullScreen = () => {
-    const w = typeof window !== "undefined" ? window.innerWidth : 390;
-    const progress = Math.min(1, dragX / Math.max(1, w));
-
-    const backdropOpacity = active ? 1 - progress * 0.6 : 0;
-    const translateX = active ? dragX : w; // when inactive, stay offscreen right
-
-    const baseDelay = 90;
-    const stepDelay = 55;
-
-    return (
-      <div className="fixed inset-0 z-[9999] md:hidden">
-        {/* Backdrop */}
-        <button
-          className="absolute inset-0 bg-black/70"
-          style={{
-            opacity: backdropOpacity,
-            transition: `opacity ${ANIM_MS}ms ${EASE}`,
-          }}
-          aria-label="Close menu overlay"
-          onClick={closeMenu}
-        />
-
-        {/* Full-screen surface */}
-        <div
-          className="absolute inset-0 bg-[#050509]/98 backdrop-blur-xl"
-          style={{
-            transform: `translateX(${translateX}px)`,
-            transition: draggingRef.current
-              ? "none"
-              : `transform ${ANIM_MS}ms ${EASE}`,
-            willChange: "transform",
-            // VERY important for Android: allow horizontal drag, block vertical gestures
-            touchAction: "pan-y",
-          }}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Mobile menu"
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
+  return (
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050509]/70 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+        {/* Brand (logo on all pages EXCEPT home) */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-3 rounded-xl px-2 py-1 transition hover:bg-white/5"
+          aria-label="Globeship Online Home"
         >
-          {/* Top bar */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
-            <span
-              className="text-sm font-semibold text-white/90"
-              style={{
-                opacity: active ? 1 : 0,
+          {!isHome && (
+            <span className="inline-flex items-center justify-center rounded-full bg-white/95 px-3 py-1.5 shadow-[0_10px_28px_rgba(0,0,0,0.45)] ring-1 ring-black/5 transition hover:bg-white hover:shadow-[0_14px_36px_rgba(0,0,0,0.55)]">
+              <img
+                src="/globeship-logo.png"
+                alt="Globeship Online"
+                className="h-8 w-auto select-none"
+                draggable={false}
+              />
+            </span>
+          )}
+
+          <span className="text-sm font-semibold tracking-tight text-white/90">
+            Globeship Online
+          </span>
+        </Link>
+
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-1 md:flex">
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-xl px-3 py-2 text-sm font-medium text-white/70 transition hover:bg-white/5 hover:text-white"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Desktop CTA */}
+        <div className="hidden md:flex">
+          <a
+            href="https://ship.globeship.ca"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center rounded-2xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400"
+          >
+            Start Shipping
+          </a>
+        </div>
+
+        {/* Mobile button */}
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white/90 transition hover:bg-white/10 md:hidden"
+          aria-label="Open m
+
